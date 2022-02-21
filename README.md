@@ -11,4 +11,5 @@ Book(Chinese): https://zh.d2l.ai/
 
 ## Contents
 
-1. 
+1. Chapter 2 Preliminaries
+2. Chaper 3 Linear Neural Networks

@@ -29,7 +29,9 @@ def plot(arrays:tuple, labels = None, xlabel = None, ylabel = None, title = None
         plt.grid()
     if save:
         plt.savefig('./' + title + '.png')
-        
+
+
+       
 if __name__ == '__main__':
     a = np.arange(5)
     b = 2 * a 
