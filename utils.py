@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 import torch
 from torch import nn 
+from torch.utils import data
 from torch.nn import functional as F 
 
 def plot(X, Y, labels = None, xlabel = None, ylabel = None, title = None, 
@@ -41,7 +42,9 @@ def plot(X, Y, labels = None, xlabel = None, ylabel = None, title = None,
     if save:
         plt.savefig('./' + title + '.png')
 
-
+def load_array(arrays, batch_size):
+    dataset = data.TensorDataset(*arrays)
+    return data.DataLoader(dataset, batch_size)
        
 if __name__ == '__main__':
     a = np.arange(5)
