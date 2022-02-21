@@ -6,19 +6,30 @@ import torch
 from torch import nn 
 from torch.nn import functional as F 
 
-def plot(arrays:tuple, labels = None, xlabel = None, ylabel = None, title = None, grid = True, save = False):
+def plot(X, Y, labels = None, xlabel = None, ylabel = None, title = None, 
+         grid = True, scatter = False, save = False):
     '''
     use to draw curves\\
-    arrays: tuple of array\\
+    Y: tuple of array\\
     labels: tuple of label\\
     '''
-    assert type(arrays) == tuple
     plt.clf()
-    for i in range(len(arrays)):
+    if scatter:
+        draw_fn = plt.scatter
+    else:
+        draw_fn = plt.plot
+        
+    if type(Y) == tuple:
+        for i in range(len(Y)):
+            if labels is not None:
+                draw_fn(X, Y[i], label = labels[i])
+            else:
+                draw_fn(X, Y[i])
+    else:
         if labels is not None:
-            plt.plot(arrays[i], label = labels[i])
+            draw_fn(X, Y, label = labels)
         else:
-            plt.plot(arrays[i])
+            draw_fn(X, Y)
     if labels is not None:
         plt.legend()
         
@@ -35,5 +46,6 @@ def plot(arrays:tuple, labels = None, xlabel = None, ylabel = None, title = None
 if __name__ == '__main__':
     a = np.arange(5)
     b = 2 * a 
-    plot((a,), labels = ('a',))
+    c = 3 * a
+    plot(a, (b, c), labels = ('b', 'c'), scatter=True)
     plt.show()
