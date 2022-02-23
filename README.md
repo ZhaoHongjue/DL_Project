@@ -12,4 +12,5 @@ Book(Chinese): https://zh.d2l.ai/
 ## Contents
 
 1. Chapter 2 Preliminaries
-2. Chaper 3 Linear Neural Networks
+2. Chapter 3 Linear Neural Networks
+3. Chapter 4 Multilayers Perceptron & Techniques
