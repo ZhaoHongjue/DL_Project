@@ -111,11 +111,26 @@ def evaluate_accuracy(model, data_iter):
             metric.add(accuracy(model(X), y), y.numel())    
     return metric[0] / metric[1]
 
+def init_weights(m):
+    if type(m) == nn.Linear:
+        nn.init.normal_(m.weight, std=0.01)
+
+'''------------------------------------------------------------------------------------------'''
+
 def SGD(params, lr):
     with torch.no_grad():
         for param in params:
             param -= lr * param.grad
             param.grad.zero_()
+            
+def MSE(y_hat, y):
+    return (0.5 * (y_hat - y.reshape(y_hat.shape))**2).mean()
+
+def CrossEntropy(y_hat, y):
+    return -torch.log(y_hat[range(len(y_hat)),y]).mean()
+
+def softmax(o):
+    return torch.exp(o)/torch.exp(o).sum(dim = 1).reshape(-1, 1)
 
 class Timer: 
     """记录多次运行时间"""
