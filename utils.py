@@ -111,6 +111,12 @@ def evaluate_accuracy(model, data_iter):
             metric.add(accuracy(model(X), y), y.numel())    
     return metric[0] / metric[1]
 
+def SGD(params, lr):
+    with torch.no_grad():
+        for param in params:
+            param -= lr * param.grad
+            param.grad.zero_()
+
 class Timer: 
     """记录多次运行时间"""
     def __init__(self):
@@ -151,11 +157,9 @@ class Accumulator:
     def __getitem__(self, idx):
         return self.data[idx]
 
-
-
-if __name__ == '__main__':
-    a = np.arange(5)
-    b = 2 * a 
-    c = 3 * a
-    plot(a, (b, c), labels = ('b', 'c'), scatter=True)
-    plt.show()
+# if __name__ == '__main__':
+#     a = np.arange(5)
+#     b = 2 * a 
+#     c = 3 * a
+#     plot(a, (b, c), labels = ('b', 'c'), scatter=True)
+#     plt.show()
