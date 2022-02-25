@@ -117,6 +117,17 @@ def init_weights(m):
 
 '''------------------------------------------------------------------------------------------'''
 
+def generate_data(w_true, b_true, num):
+    '''use true value get datum with noise'''
+    X = torch.normal(0, 1, (num, len(w_true)))
+    Y = X @ w_true.reshape(-1, 1) + b_true
+    noise = torch.normal(0, 0.001, Y.shape)
+    Y += noise
+    return X, Y.reshape(-1)
+
+def LinearReg(X, w, b):
+    return X @ w.reshape(-1, 1) + b
+
 def SGD(params, lr):
     with torch.no_grad():
         for param in params:
@@ -172,9 +183,43 @@ class Accumulator:
     def __getitem__(self, idx):
         return self.data[idx]
 
-# if __name__ == '__main__':
-#     a = np.arange(5)
-#     b = 2 * a 
-#     c = 3 * a
-#     plot(a, (b, c), labels = ('b', 'c'), scatter=True)
-#     plt.show()
+class EpochRecorder:
+    def __init__(self, n):
+        self.n = n
+        self.memory = []
+        for _ in range(self.n):
+            self.memory.append([])
+           
+    def append(self, *args):
+        for i, num in enumerate(args):
+            self.memory[i].append(num)
+    
+    def reset(self):
+        self.memory = []
+        for _ in range(self.n):
+            self.memory.append([])
+            
+    def plot(self, labels = None, xlabel = 'epochs', ylabel = 'metric', title = None, 
+            grid = True, scatter = False, save = False):
+        epochs = list(range(len(self.memory[0])))
+        plot(epochs, self.memory, labels, xlabel, ylabel, title, grid, scatter, save)
+        
+    def get_num(self, idx, mode = 'mean'):
+        if mode == 'mean':
+            return float(np.mean(self.memory[idx]))
+        elif mode == 'sum':
+            return float(np.sum(self.memory[idx]))
+        else:
+            return 'fuck'
+            
+    def __getitem__(self, idx):
+        return self.memory[idx]
+
+if __name__ == '__main__':
+    rec = EpochRecorder(3)
+    rec.append(3, 4, 5)
+    rec.append(4, 5, 6)
+    rec.append(5, 6, 7)
+    rec.append(7, 8, 9)
+    rec.plot(labels = ['1', '2', '3', '4'], title='test')
+    plt.show()    
