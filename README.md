@@ -14,3 +14,4 @@ Book(Chinese): https://zh.d2l.ai/
 1. Chapter 2 Preliminaries
 2. Chapter 3 Linear Neural Networks
 3. Chapter 4 Multilayers Perceptron & Regularzation
+4. Chapter 5 Parameters Management
