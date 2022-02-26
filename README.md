@@ -15,3 +15,5 @@ Book(Chinese): https://zh.d2l.ai/
 2. Chapter 3 Linear Neural Networks
 3. Chapter 4 Multilayers Perceptron & Regularzation
 4. Chapter 5 Parameters Management
+5. Chapter 6 Convolutional Neural Network
+6. Chapter 7 Modern CNN
